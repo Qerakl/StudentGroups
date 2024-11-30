@@ -25,12 +25,9 @@ class StudentController extends Controller
     {
         try
         {
-            $student = Student::create([
-                'first_name' => $request->input('first_name'),
-                'last_name' => $request->input('last_name'),
-                'login' => $request->input('login'),
-                'password' => Hash::make($request->input('password')),
-            ]);
+            $student = $request->validated();
+            $student['password'] = Hash::make($student['password']);
+            $student = Student::create($student);
 
             return response()->json([$student,'message' => 'Student created'], 201);
         }
@@ -45,7 +42,8 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        unset($student['password']);
+        return response()->json($student);
     }
 
     /**
