@@ -25,9 +25,12 @@ class StudentController extends Controller
     {
         try
         {
-            $student = $request->validated();
-            $student['password'] = Hash::make($student['password']);
-            Student::create($student);
+            $student = Student::create([
+                'first_name' => $request->input('first_name'),
+                'last_name' => $request->input('last_name'),
+                'login' => $request->input('login'),
+                'password' => Hash::make($request->input('password')),
+            ]);
 
             return response()->json([$student,'message' => 'Student created'], 201);
         }
