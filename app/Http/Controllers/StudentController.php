@@ -46,13 +46,6 @@ class StudentController extends Controller
         return response()->json($student);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
