@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Tests\\Feature\\Student\\StoreTest::test_student_store":8,"Tests\\Feature\\Student\\StoreTest::test_student_fails":7},"times":{"Tests\\Unit\\ExampleTest::test_that_true_is_true":0.004,"Tests\\Feature\\Student\\StoreTest::test_student_store":0.053,"Tests\\Feature\\Student\\StoreTest::test_student_fails":0.021}}
