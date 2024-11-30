@@ -13,20 +13,19 @@ class StoreTest extends TestCase
     use RefreshDatabase, WithFaker;
 
 
-    //Проверка на успешное создание пользователя
-    public function test_student_store()
+    public function test_validation_successful_student_creation()
     {
+        $login = $this->faker->unique()->userName();
         $response = $this->post(route('student.store'), [
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'login' => 'johndoeandpupkinvasiliy09203',
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'login' => $login,
             'password' => 'password',
         ]);
+
         $response->assertStatus(201);
         $this->assertDatabaseHas('students', [
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'login' => 'johndoeandpupkinvasiliy09203',
+            'login' => $login,
         ]);
     }
 
