@@ -73,6 +73,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->group()->decrement('count_students');
+        $student->delete();
+        return response()->json(['message' => 'Student deleted'], 200);
     }
 }
