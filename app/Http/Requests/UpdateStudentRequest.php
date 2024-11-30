@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateStudentRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class UpdateStudentRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'login' => 'required|string|unique:students,login|max:255',
+            'login' => 'required|string|unique:students,login|max:255|',Rule::unique('students', 'login')->ignore($this->route('student'))
         ];
     }
 

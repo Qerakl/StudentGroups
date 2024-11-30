@@ -52,7 +52,20 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        //
+        try
+        {
+            $student->update([
+                'first_name' => $request->input('first_name'),
+                'last_name' => $request->input('last_name'),
+                'login' => $request->input('login'),
+            ]);
+
+            return response()->json([$student,'message' => 'Student updated'], 200);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(['error' => $e], 500);
+        }
     }
 
     /**
