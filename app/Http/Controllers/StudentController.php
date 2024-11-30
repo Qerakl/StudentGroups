@@ -59,7 +59,7 @@ class StudentController extends Controller
                 'last_name' => $request->input('last_name'),
                 'login' => $request->input('login'),
             ]);
-
+            unset($student['password']);
             return response()->json([$student,'message' => 'Student updated'], 200);
         }
         catch(\Exception $e)
