@@ -13,15 +13,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json(Student::all()->paginate(10));
     }
 
     /**
@@ -29,7 +21,7 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        //
+
     }
 
     /**
