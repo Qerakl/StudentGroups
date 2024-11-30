@@ -22,7 +22,7 @@ class StudentFactory extends Factory
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'group_id' => Group::factory(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'email' => $this->faker->unique()->userName,
             'password' => Hash::make('password'),
         ];
     }

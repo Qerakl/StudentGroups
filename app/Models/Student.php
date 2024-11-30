@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Student extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'first_name', 'group_id', 'email', 'password'];
+    protected $fillable = ['name', 'first_name', 'group_id', 'login', 'password'];
 
 
     public function group()
