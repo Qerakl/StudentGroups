@@ -48,7 +48,6 @@ class UpdateStudentRequest extends FormRequest
             'login.string' => 'Логин должен быть строкой.',
             'login.unique' => 'Этот логин уже занят.',
             'login.max' => 'Логин не может быть длиннее 255 символов.',
-
         ];
     }
 }
