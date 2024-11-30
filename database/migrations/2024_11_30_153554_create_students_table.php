@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->foreignId('group_id')->constrained('groups')->onDelete('cascade')->nullable();
+            $table->foreignId('group_id')->nullable()->constrained('groups')->onDelete('cascade');
             $table->string('login')->unique();
             $table->string('password');
             $table->timestamps();
