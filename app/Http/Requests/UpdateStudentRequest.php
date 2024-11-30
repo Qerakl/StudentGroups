@@ -25,7 +25,12 @@ class UpdateStudentRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'login' => 'required|string|unique:students,login|max:255|',Rule::unique('students', 'login')->ignore($this->route('student'))
+            'login' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('students', 'login')->ignore($this->route('student')),
+            ],
         ];
     }
 
@@ -43,6 +48,7 @@ class UpdateStudentRequest extends FormRequest
             'login.string' => 'Логин должен быть строкой.',
             'login.unique' => 'Этот логин уже занят.',
             'login.max' => 'Логин не может быть длиннее 255 символов.',
+
         ];
     }
 }
