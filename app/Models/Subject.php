@@ -10,6 +10,8 @@ class Subject extends Model
 {
     use HasFactory;
 
+    public $fillable = ['name'];
+
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class, 'student_subjects')
