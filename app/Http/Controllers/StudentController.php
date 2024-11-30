@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class StudentController extends Controller
 {
@@ -21,7 +23,18 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
+        try
+        {
+            $student = $request->validated();
+            $student['password'] = Hash::make($student['password']);
+            Student::create($student);
 
+            return response()->json([$student,'message' => 'Student created'], 201);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(['error' => $e], 500);
+        }
     }
 
     /**
