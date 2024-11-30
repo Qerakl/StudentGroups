@@ -15,7 +15,6 @@ class StudentSubjectSeeder extends Seeder
      */
     public function run(): void
     {
-        // Получаем всех студентов и все предметы
         $students = Student::all();
         $subjects = Subject::all();
 
