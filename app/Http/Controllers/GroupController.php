@@ -13,7 +13,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+       return response()->json(Group::paginate(10));
     }
 
     /**
