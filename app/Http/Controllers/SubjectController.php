@@ -38,19 +38,16 @@ class SubjectController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Subject $subject)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateSubjectRequest $request, Subject $subject)
     {
-        //
+        try {
+            $subject->update($request->validated());
+            return response()->json(['message' => 'Subject updated successfully.', 200]);
+        }catch (\Exception $exception){
+            return response()->json(['message' => $exception->getMessage()], 500);
+        }
     }
 
     /**
