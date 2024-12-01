@@ -55,6 +55,7 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        $subject->delete();
+        return response()->json(['message' => 'Subject deleted successfully.', 200]);
     }
 }
