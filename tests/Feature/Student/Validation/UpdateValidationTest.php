@@ -57,9 +57,29 @@ class UpdateValidationTest extends TestCase
             'first_name' => 123,
             'last_name' => true,
             'login' => ['array'],
+            'group_id' => 2.2
         ]);
 
         $response->assertStatus(302);
-        $response->assertSessionHasErrors(['first_name', 'last_name', 'login']);
+        $response->assertSessionHasErrors(['first_name', 'last_name', 'login', 'group_id']);
     }
+
+    /**
+     * Тест валидации несуществующая группа.
+     */
+    public function test_update_student_with_nonexistent_group()
+    {
+        $student = Student::factory()->create();
+
+        $response = $this->put(route('student.update', $student), [
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'login' => $this->faker->unique()->userName(),
+            'group_id' => 999999,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors(['group_id']);
+    }
+
 }

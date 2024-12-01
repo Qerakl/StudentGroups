@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
@@ -28,6 +29,7 @@ class StudentController extends Controller
             $student = $request->validated();
             $student['password'] = Hash::make($student['password']);
             $student = Student::create($student);
+            $student->group()->increment('count_students');
 
             return response()->json([$student,'message' => 'Student created'], 201);
         }
@@ -54,6 +56,13 @@ class StudentController extends Controller
     {
         try
         {
+            if($request->input('group_id') != $student->group()->first()->id){
+                $student->group()->decrement('count_students');
+                $student->update([
+                    'group_id' => $request->input('group_id'),
+                ]);
+                $student->group()->increment('count_students');
+            }
             $student->update([
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name'),

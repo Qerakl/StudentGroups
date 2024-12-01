@@ -31,6 +31,7 @@ class UpdateStudentRequest extends FormRequest
                 'max:255',
                 Rule::unique('students', 'login')->ignore($this->route('student')),
             ],
+            'group_id' => 'required|integer|exists:groups,id',
         ];
     }
 
@@ -43,11 +44,13 @@ class UpdateStudentRequest extends FormRequest
             'last_name.required' => 'Фамилия обязательна.',
             'last_name.string' => 'Фамилия должна быть строкой.',
             'last_name.max' => 'Фамилия не может быть длиннее 255 символов.',
-            'group_id.exists' => 'Выбранная группа недействительна.',
             'login.required' => 'Логин обязателен.',
             'login.string' => 'Логин должен быть строкой.',
             'login.unique' => 'Этот логин уже занят.',
             'login.max' => 'Логин не может быть длиннее 255 символов.',
+            'group_id.required' => 'Необходимо указать Группы.',
+            'group_id.integer' => 'ID группы должен быть целым числом.',
+            'group_id.exists' => 'Выбранная группа не существует.',
         ];
     }
 }

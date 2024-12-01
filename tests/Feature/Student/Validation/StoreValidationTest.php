@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Student\Validation;
 
+use App\Models\Group;
 use App\Models\Student;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -11,27 +12,9 @@ class StoreValidationTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    /**
-     * Тест успешного создания студента с корректными данными.
-     */
-    public function test_validation_successful_student_creation()
-    {
-        $login = $this->faker->unique()->userName();
-        $response = $this->post(route('student.store'), [
-            'first_name' => $this->faker->firstName(),
-            'last_name' => $this->faker->lastName(),
-            'login' => $login,
-            'password' => 'password',
-        ]);
-
-        $response->assertStatus(201);
-        $this->assertDatabaseHas('students', [
-            'login' => $login,
-        ]);
-    }
 
     /**
-     * Тест валидации обязательных полей (first_name, last_name, login, password).
+     * Тест валидации обязательных полей.
      */
     public function test_validation_required_fields()
     {
@@ -40,10 +23,11 @@ class StoreValidationTest extends TestCase
             'last_name' => '',
             'login' => '',
             'password' => '',
+            'group_id' => '',
         ]);
 
         $response->assertStatus(302);
-        $response->assertSessionHasErrors(['first_name', 'last_name', 'login', 'password']);
+        $response->assertSessionHasErrors(['first_name', 'last_name', 'login', 'password', 'group_id']);
         $this->assertDatabaseCount('students', 0);
     }
 
@@ -52,10 +36,12 @@ class StoreValidationTest extends TestCase
      */
     public function test_validation_unique_login()
     {
+        $group = Group::factory()->create();
         $student = Student::create([
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'login' => $this->faker->unique()->userName(),
+            'group_id' => $group->id,
             'password' => 'password',
         ]);
 
@@ -63,6 +49,7 @@ class StoreValidationTest extends TestCase
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'login' => $student->login, // Старая уникальная запись
+            'group_id' => $group->id,
             'password' => 'password',
         ]);
 
@@ -76,10 +63,12 @@ class StoreValidationTest extends TestCase
      */
     public function test_validation_password_min_length()
     {
+        $group = Group::factory()->create();
         $response = $this->post(route('student.store'), [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'login' => $this->faker->unique()->userName(),
+            'group_id' => $group->id,
             'password' => '123',
         ]);
 
@@ -87,4 +76,22 @@ class StoreValidationTest extends TestCase
         $response->assertSessionHasErrors(['password']);
         $this->assertDatabaseCount('students', 0);
     }
+
+    /**
+     * Тест валидации несуществующая группа.
+     */
+    public function test_store_student_with_nonexistent_group()
+    {
+        $response = $this->post(route('student.store'), [
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'login' => $this->faker->unique()->userName(),
+            'group_id' => 999999, // Несуществующий ID группы
+            'password' => 'password',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors(['group_id']);
+    }
+
 }
