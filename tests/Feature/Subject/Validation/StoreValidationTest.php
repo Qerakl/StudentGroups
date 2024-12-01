@@ -18,7 +18,7 @@ class StoreValidationTest extends TestCase
     public function test_validation_name_is_required()
     {
         $response = $this->post(route('subject.store'), [
-            'name' => null,
+            'name' => '',
         ]);
 
         $response->assertStatus(302);
