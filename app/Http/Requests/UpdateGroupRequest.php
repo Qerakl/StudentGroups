@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateGroupRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateGroupRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,21 @@ class UpdateGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('groups', 'name')->ignore($this->route('group')),
+            ],
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Поле "Название группы" обязательно для заполнения.',
+            'name.string' => 'Поле "Название группы" должно быть строкой.',
+            'name.max' => 'Поле "Название группы" не должно превышать 255 символов.',
+            'name.unique' => 'Группа с таким названием уже существует.',
         ];
     }
 }
