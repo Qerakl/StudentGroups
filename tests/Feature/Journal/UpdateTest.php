@@ -37,4 +37,16 @@ class UpdateTest extends TestCase
             'grade' => 3,
         ]);
     }
+
+    /**
+     * Тест на 404 ошибку.
+     */
+    public function test_destroy_student_subject_not_found()
+    {
+        $response = $this->put(route('journal.update', 9999), [
+            'grade' => 3,
+        ]);
+
+        $response->assertStatus(404);
+    }
 }
