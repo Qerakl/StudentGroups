@@ -74,6 +74,7 @@ class JournalController extends Controller
     public function destroy(StudentSubject $studentSubject)
     {
         $studentSubject->delete();
+
         return response()->json(null, 204);
     }
 }
