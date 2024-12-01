@@ -25,7 +25,15 @@ class StudentSubjectController extends Controller
      */
     public function store(StoreStudentSubjectRequest $request)
     {
-        //
+        try {
+            $studentSubject = $request->validated();
+            $studentSubject['date'] = date('Y-m-d');
+            StudentSubject::query()->create($studentSubject);
+
+            return response()->json($studentSubject, 201);
+        }catch (\Exception $exception){
+            return response()->json(['error' => $exception->getMessage()]);
+        }
     }
 
     /**

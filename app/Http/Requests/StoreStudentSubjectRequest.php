@@ -33,9 +33,9 @@ class StoreStudentSubjectRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'student_id.required' => 'Поле "ID студента" обязательно для заполнения.',
+            'student_id.required' => 'Поле "Студент" обязательно для заполнения.',
             'student_id.exists' => 'Указанный студент не существует.',
-            'subject_id.required' => 'Поле "ID предмета" обязательно для заполнения.',
+            'subject_id.required' => 'Поле "Предмет" обязательно для заполнения.',
             'subject_id.exists' => 'Указанный предмет не существует.',
             'grade.required' => 'Поле "Оценка" обязательно для заполнения.',
             'grade.integer' => 'Оценка должна быть числом.',
