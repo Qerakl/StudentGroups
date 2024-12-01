@@ -25,6 +25,7 @@ class StudentSubjectSeeder extends Seeder
                     'student_id' => $student->id,
                     'subject_id' => $subject->id,
                     'grade' => (string) rand(2, 5),
+                    'date' => fake()->dateTimeBetween('2023-01-01', '2025-01-01')->format('Y-m-d'),
                 ]);
             }
         }
