@@ -21,7 +21,12 @@ class SubjectController extends Controller
      */
     public function store(StoreSubjectRequest $request)
     {
-        //
+        try {
+            Subject::create($request->validated());
+            return response()->json(['message' => 'Subject created successfully.', 201]);
+        }catch (\Exception $exception){
+            return response()->json(['message' => $exception->getMessage()], 500);
+        }
     }
 
     /**
