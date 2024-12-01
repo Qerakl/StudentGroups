@@ -13,15 +13,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json(Subject::all());
     }
 
     /**
