@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
+use App\Models\Student;
 use App\Models\StudentSubject;
 use App\Http\Requests\StoreStudentSubjectRequest;
 use App\Http\Requests\UpdateStudentSubjectRequest;
+use App\Models\Subject;
 
 class StudentSubjectController extends Controller
 {
@@ -39,9 +42,16 @@ class StudentSubjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(StudentSubject $studentSubject)
+    public function show_group(Group $group)
     {
-        //
+        $students = $group->students()->get();
+        $journal  = [];
+        $i = 0;
+        foreach($students as $student) {
+            $journal[$i] = StudentSubject::query()->where('student_id', $student->id)->get();
+            $i++;
+        }
+        return response()->json($journal);
     }
 
     /**
