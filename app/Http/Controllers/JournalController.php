@@ -9,7 +9,7 @@ use App\Http\Requests\StoreStudentSubjectRequest;
 use App\Http\Requests\UpdateStudentSubjectRequest;
 use App\Models\Subject;
 
-class StudentSubjectController extends Controller
+class JournalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -72,6 +72,7 @@ class StudentSubjectController extends Controller
      */
     public function destroy(StudentSubject $studentSubject)
     {
-        //
+        $studentSubject->delete();
+        return response()->json(null, 204);
     }
 }
