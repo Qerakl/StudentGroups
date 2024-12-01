@@ -38,19 +38,17 @@ class GroupController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Group $group)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateGroupRequest $request, Group $group)
     {
-        //
+        try {
+            $group->update($request->validated());
+            return response()->json(['message' => 'Group updated', 'group' => $group]);
+
+        }catch (\Exception $exception){
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
     }
 
     /**
