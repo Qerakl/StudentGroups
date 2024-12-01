@@ -34,4 +34,16 @@ class UpdateTest extends TestCase
         ]);
     }
 
+    /**
+     * Тест обновления несуществующей группы (404).
+     */
+    public function test_update_returns_404_for_nonexistent_group()
+    {
+        $name = 'Updated Group';
+        $response = $this->put(route('group.update', 9999), [
+            'name' => $name
+        ]);
+        $response->assertStatus(404);
+    }
+
 }
