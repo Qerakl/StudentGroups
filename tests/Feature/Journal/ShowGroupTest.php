@@ -27,4 +27,12 @@ class ShowGroupTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonCount(2);
     }
+    /**
+     * Тест на 404.
+     */
+    public function test_show_group_student_group_not_found()
+    {
+        $response = $this->getJson(route('journal.show_group', '9999'));
+        $response->assertStatus(404);
+    }
 }
