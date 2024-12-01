@@ -13,7 +13,11 @@ class StudentSubjectController extends Controller
      */
     public function index()
     {
-        //
+        $journal  = StudentSubject::query()
+        ->orderBy('date', 'desc')
+        ->paginate(20);
+
+        return response()->json($journal);
     }
 
     /**

@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::resource('student', \App\Http\Controllers\StudentController::class);
 Route::resource('group', \App\Http\Controllers\GroupController::class);
 Route::resource('subject', \App\Http\Controllers\SubjectController::class);
-Route::resource('journal', \Database\Seeders\StudentSubjectSeeder::class);
+Route::resource('journal', \App\Http\Controllers\StudentSubjectController::class);
