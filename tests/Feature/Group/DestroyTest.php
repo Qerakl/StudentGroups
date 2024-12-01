@@ -25,4 +25,13 @@ class DestroyTest extends TestCase
 
         $this->assertDatabaseMissing('groups', ['id' => $group->id]);
     }
+
+    /**
+     * Тест удаления несуществующей группы (404).
+     */
+    public function test_destroy_returns_404_for_nonexistent_group()
+    {
+        $response = $this->delete(route('group.destroy', 9999));
+        $response->assertStatus(404);
+    }
 }
