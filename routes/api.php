@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource('student', \App\Http\Controllers\StudentController::class)->except(['create', 'edit']);
 Route::resource('group', \App\Http\Controllers\GroupController::class)->except(['create', 'edit']);
 Route::resource('subject', \App\Http\Controllers\SubjectController::class)->except(['create', 'edit']);
-Route::resource('journal', \App\Http\Controllers\JournalController::class)->except(['show', 'create', 'edit', 'update']);
+Route::resource('journal', \App\Http\Controllers\JournalController::class)->except(['show', 'create', 'edit', 'update', 'destroy']);
 Route::get('journal/group/{group}', [\App\Http\Controllers\JournalController::class, 'show_group']);
 Route::put('journal/{studentSubject}', [\App\Http\Controllers\JournalController::class, 'update']);
+Route::delete('journal/{studentSubject}', [\App\Http\Controllers\JournalController::class, 'destroy']);
