@@ -61,9 +61,10 @@ class JournalController extends Controller
     {
         try {
             $studentSubject->update($request->validated());
-            return response()->json([$studentSubject, 'message' => 'StudentSubject Update'], 200);
-        }catch (\Exception $exception){
-            return response()->json(['error' => $exception->getMessage()]);
+
+            return response()->json([$studentSubject,'message' => 'StudentSubject updated successfully'], 200);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
         }
     }
 
